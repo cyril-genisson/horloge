@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Project: Clock
@@ -8,8 +8,28 @@
 # Licence: GPLv3
 #
 # Author: Cyril GENISSON
+#
+#
+# Description: Pour ce projet d'horloge j'ai essayé d'utiliser
+# la librairie urwid pour avoir une gestion du terminal
+# de type Curses. Je ne suis pas très satisfait du résultat,
+# cette librairie semble être parfaite pour se projet mais je
+# n'est pas encore réussi à en comprendre toutes ses subtilités.
+# Néanmoins ce travail aura eu le mérite de me la faire découvrir.
+#
+# Les touches claviers pour gérer l'horloge
+# q : quitter le programme
+# p : mettre en pause l'horloge 
+# m : passer du mode 24h au mode 12h (AM/PM) 
+#
+# je n'ai pas eu le temps de concevoir l'alarme avec l'affichage
+# du pop-up. En effet je viens de me rendre compte que j'avais mal
+# conçu le code. La classe Clock gère l'intégralité de l'affichage
+# alors que j'aurais dû la créer comme un widget urwid pour pouvoir ajouter
+# de nouveaux composants comme un menu. Je reprendrais ce travail pour en avoir
+# une version beaucoup convenable.
+
 import time
-import datetime
 import urwid
 
 
@@ -72,7 +92,7 @@ class Clock:
         if key in ("m", "M"):
             if not self.state["MODE"]:
                 self.state["MODE"] = True
-                self.format = "%I:%M:%S%p"
+                self.format = "%I:%M:%S %p"
             else:
                 self.state["MODE"] = False
                 self.format = "%H:%M:%S"
@@ -83,6 +103,10 @@ class Clock:
                 self.state["BREAK"] = False
 
 
-if __name__ == "__main__":
+def main():
     clock = Clock()
     clock.start()
+
+
+if __name__ == "__main__":
+    main()
